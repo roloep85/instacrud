@@ -14,7 +14,7 @@
             <input id="phone" type="text" v-model="model.user.phone" class="form-control">
         </div>
         <div class="mb-3">
-            <button type="button" @click="saveUser()" class="btn btn-primary">Update</button>
+            <button type="button" @click="updateUser(this.$route.params.id)" class="btn btn-primary">Update</button>
         </div>
     </main>
 </template>
@@ -32,27 +32,27 @@
                 }
             }
         },
+        mounted() {
+            this.getUser(this.$route.params.id);
+        },
         methods: {
-            getUser() {
-                fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users/'+user.id)
+            getUser(userId) {
+                fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users/'+userId)
                 .then(response => this.model.user = response.json())
-                .then(json => console.log(json))
+                .then(json => this.model.user = json)
 
             },
-            updateUser() {
-                fetch('https://jsonplaceholder.typicode.com/user/:id', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        title: 'foo',
-                        body: 'bar',
-                        userId: 1,
-                    }),
+            updateUser(userId) {
+                fetch('https://jsonplaceholder.typicode.com/users/'+userId, {
+                    method: 'PUT',
+                    body: JSON.stringify(this.model.user),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
                     },
                 })
                 .then((response) => response.json())
-                .then((json) => console.log(json));
+                .then(json => this.model.user = json)
+                // .then((json) => console.log(json));
             }
         }
     }

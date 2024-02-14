@@ -34,18 +34,16 @@
         },
         methods: {
             createUser() {
-                const newTask = model.user;
-
                 fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users', {
                     method: 'POST',
                     headers: {'content-type':'application/json'},
-                    body: JSON.stringify(newTask)
+                    body: JSON.stringify(this.model.user)
                 }).then(res => {
                 if (res.ok) {
                     return res.json();
                 }
 
-                }).then(task => {
+                }).then(user => {
 
                 }).catch(error => {
 

@@ -1,5 +1,6 @@
 <script setup>
-  import { RouterLink } from 'vue-router';
+  import router from '@/router';
+import { RouterLink } from 'vue-router';
 </script>
 <template>
   <main class="container mt-5">
@@ -10,20 +11,20 @@
     </h4>
     <div class="clearfix pt-3"></div>
     <div class="row" v-if="users.length > 0">
-      <div class="col-sm-6" v-for="(user, index) in users" :key="index">
+      <div class="col-lg-6" v-for="(user, index) in users" :key="index">
         <div class="card mb-3">
           <div class="row g-0">
-            <div class="col-md-3">
+            <div class="col-3">
               <img :src="user.avatar" class="img-fluid rounded-start" alt="...">
             </div>
-            <div class="col-md-9">
+            <div class="col-9">
               <div class="card-body position-relative">
-                <div class="position-absolute top-0 end-0 d-flex flex-column">
+                <div class="position-absolute bottom-0 end-0 btn-group">
                   <RouterLink :to="{path: '/users/edit/'+user.id}" class="btn btn-sm btn-outline-success">
                     <i class="bi bi-pencil-square"></i>
                   </RouterLink>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    <i class="bi bi-trash"></i>
+                  <button type="button" @click="deleteUser(user.id)" class="btn btn-sm btn-outline-danger">
+                    <i x-if="" class="bi bi-trash"></i>
                   </button>
                 </div>
                 <h5 class="card-title">{{ user.name }}</h5>
@@ -74,9 +75,19 @@
     methods: {
       getUsers() {
         fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users')
-        .then(response => this.users = response.json())
+        .then(res => this.users = res.json())
         .then(json => this.users = json)
-        // .then(json => console.log(json))
+      },
+      deleteUser(id) {
+        fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users/'+id, {
+          method: 'DELETE',
+        }).then(res => {
+          if (res.ok) {
+            this.getUsers();
+          }
+        }).catch(error => {
+          // handle error
+        });
       }
     }
   }
