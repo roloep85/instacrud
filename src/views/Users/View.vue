@@ -1,46 +1,60 @@
 <script setup>
-  // import axios from 'axios';
   import { RouterLink } from 'vue-router';
 </script>
 <template>
   <main class="container mt-5">
-    <div class="card">
-      <div class="card-header">
-        <h4>This is the users page
-          <RouterLink to="/users/create" class="btn btn-primary float-end">
-            Add Student
-          </RouterLink>
-        </h4>
+    <h4>Users page
+      <RouterLink to="/users/create" class="btn btn-primary float-end">
+        Add User
+      </RouterLink>
+    </h4>
+    <div class="clearfix pt-3"></div>
+    <div class="row" v-if="users.length > 0">
+      <div class="col-sm-6" v-for="(user, index) in users" :key="index">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-3">
+              <img :src="user.avatar" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body position-relative">
+                <div class="position-absolute top-0 end-0 d-flex flex-column">
+                  <RouterLink :to="{path: '/users/edit/'+user.id}" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-pencil-square"></i>
+                  </RouterLink>
+                  <button type="button" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <h5 class="card-title">{{ user.name }}</h5>
+                <p class="card-text">{{ user.email }}</p>
+                <p class="card-text"><small class="text-body-secondary">{{ user.phone }}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <table class="table table-bordered"> 
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody v-if="users.length > 0">
-            <tr v-for="(student, index) in users" :key="index">
-              <td>{{ student.id }}</td>
-              <td>{{ student.name }}</td>
-              <td>{{ student.email }}</td>
-              <td>{{ student.phone }}</td>
-              <td>
-                <RouterLink :to="{path: '/users/edit/'+student.id}" class="btn btn-sm btn-outline-success me-1">Edit</RouterLink>
-                <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-          <tbody v-else>
-            <tr>
-              <td colspan="5">Loading...</td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <div class="row" v-else>
+      <div class="col-sm-6">
+        <div class="card mb-3 placeholder-glow rounded-2 overflow-hidden" aria-hidden="true">
+          <span class="placeholder" style="min-height: 130px;"></span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card mb-3 placeholder-glow rounded-2 overflow-hidden" aria-hidden="true">
+          <span class="placeholder" style="min-height: 130px;"></span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card mb-3 placeholder-glow rounded-2 overflow-hidden" aria-hidden="true">
+          <span class="placeholder" style="min-height: 130px;"></span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card mb-3 placeholder-glow rounded-2 overflow-hidden" aria-hidden="true">
+          <span class="placeholder" style="min-height: 130px;"></span>
+        </div>
       </div>
     </div>
   </main>
@@ -58,13 +72,11 @@
       this.getUsers();
     },
     methods: {
-      createStudent() {
-        
-      },
       getUsers() {
-        fetch('https://jsonplaceholder.typicode.com/users/')
+        fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users')
         .then(response => this.users = response.json())
         .then(json => this.users = json)
+        // .then(json => console.log(json))
       }
     }
   }
