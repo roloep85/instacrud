@@ -18,7 +18,8 @@
             <input id="phone" type="text" v-model="model.user.phone" class="form-control">
         </div>
         <div class="mb-3">
-            <button type="button" @click="updateUser(this.$route.params.id)" class="btn btn-primary">Update</button>
+            <RouterLink to="/users" class="btn btn-secondary me-1"><i class="bi bi-chevron-left"></i></RouterLink>
+            <button type="button" @click="updateUser(this.$route.params.id)" class="btn btn-primary">Update Details <i class="bi bi-clipboard-check"></i></button>
         </div>
     </main>
 </template>
