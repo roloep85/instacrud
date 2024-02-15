@@ -23,7 +23,7 @@ import { RouterLink } from 'vue-router';
                   <RouterLink :to="{path: '/users/edit/'+user.id}" class="btn btn-sm btn-outline-success">
                     <i class="bi bi-pencil-square"></i>
                   </RouterLink>
-                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button type="button" class="btn btn-sm btn-outline-danger" @click="deleteUser(user.id)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>
@@ -34,7 +34,7 @@ import { RouterLink } from 'vue-router';
             </div>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -46,7 +46,7 @@ import { RouterLink } from 'vue-router';
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="row" v-else>
