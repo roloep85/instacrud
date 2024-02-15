@@ -19,18 +19,20 @@
         </div>
         <div class="mb-3">
             <RouterLink to="/users" class="btn btn-secondary me-1"><i class="bi bi-chevron-left"></i></RouterLink>
-            <button type="button" @click="updateUser(this.$route.params.id)" class="btn btn-primary">Update Details <i class="bi bi-clipboard-check"></i></button>
+            <button type="button" @click="updateUser($route.params.id)" class="btn btn-primary"><span>Update</span> Details <i class="bi bi-clipboard-check"></i></button>
         </div>
+        <div v-if="model.successful" class="bg-success p-2 text-dark bg-opacity-25">User details successfully updated. You can go <RouterLink to="/users">back</RouterLink> or update it again.</div>
     </main>
 </template>
 <script>
   export default {
         name: 'userCreate',
+
         data() {
             return {
                 model: {
+                    successful: false,
                     user: {
-                        id: '',
                         name: '',
                         email: '',
                         phone: ''
@@ -49,7 +51,7 @@
 
             },
             updateUser(userId) {
-                fetch('https://jsonplaceholder.typicode.com/users/'+userId, {
+                fetch('https://5932f11a76652a0011dcf8d6.mockapi.io/users/'+userId, {
                     method: 'PUT',
                     body: JSON.stringify(this.model.user),
                     headers: {
@@ -58,12 +60,14 @@
                 })
                 .then((response) => response.json())
                 .then(json => this.model.user = json)
-                .then(this.goToUsers());
-                // .then((json) => console.log(json));
+                .then(this.model.successful = true)
+                // .then(this.goToUsers())
             },
-            goToUsers() {
-                this.$router.push({ name: 'users'});
-            }
+            // goToUsers() {
+            //     this.$router
+            //     .push({ path: '/users'})
+            //     .then(() => { this.$router.go() })
+            // }
         }
     }
 </script>
