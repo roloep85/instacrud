@@ -40,7 +40,7 @@
                     body: JSON.stringify(this.model.user)
                 }).then(res => {
                 if (res.ok) {
-                    return res.json();
+                    this.goToUsers();
                 }
 
                 }).then(user => {
@@ -48,6 +48,9 @@
                 }).catch(error => {
 
                 })
+            },
+            goToUsers() {
+                this.$router.push({ name: 'users'});
             }
         }
     }

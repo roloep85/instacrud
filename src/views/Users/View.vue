@@ -14,10 +14,10 @@ import { RouterLink } from 'vue-router';
       <div class="col-lg-6" v-for="(user, index) in users" :key="index">
         <div class="card mb-3">
           <div class="row g-0">
-            <div class="col-3">
-              <img :src="user.avatar" class="img-fluid rounded-start" alt="...">
+            <div class="col-4 col-sm-3 overflow-hidden">
+              <img :src="user.avatar" class="" alt="...">
             </div>
-            <div class="col-9">
+            <div class="col-8 col-sm-9">
               <div class="card-body position-relative">
                 <div class="position-absolute bottom-0 end-0 btn-group">
                   <RouterLink :to="{path: '/users/edit/'+user.id}" class="btn btn-sm btn-outline-success">
@@ -27,9 +27,9 @@ import { RouterLink } from 'vue-router';
                     <i x-if="" class="bi bi-trash"></i>
                   </button>
                 </div>
-                <h5 class="card-title">{{ user.name }}</h5>
-                <p class="card-text">{{ user.email }}</p>
-                <p class="card-text"><small class="text-body-secondary">{{ user.phone }}</small></p>
+                <h5 class="card-title text-truncate">{{ user.name }}</h5>
+                <p class="card-text text-truncate">{{ user.email }}</p>
+                <p class="card-text text-truncate"><small class="text-body-secondary">{{ user.phone }}</small></p>
               </div>
             </div>
           </div>

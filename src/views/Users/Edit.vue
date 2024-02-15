@@ -1,6 +1,10 @@
 <template>
     <main class="container mt-5">
         <h4>Edit User</h4>
+        <div class="mb-3 d-none">
+            <label for="id">Id</label>
+            <input id="id" type="text" v-model="model.user.id" class="form-control">
+        </div>
         <div class="mb-3">
             <label for="name">Name</label>
             <input id="name" type="text" v-model="model.user.name" class="form-control">
@@ -25,6 +29,7 @@
             return {
                 model: {
                     user: {
+                        id: '',
                         name: '',
                         email: '',
                         phone: ''
@@ -52,7 +57,11 @@
                 })
                 .then((response) => response.json())
                 .then(json => this.model.user = json)
+                .then(this.goToUsers());
                 // .then((json) => console.log(json));
+            },
+            goToUsers() {
+                this.$router.push({ name: 'users'});
             }
         }
     }
